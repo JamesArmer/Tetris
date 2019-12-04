@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/MainApplication/MainApplication.iml" filepath="$PROJECT_DIR$/MainApplication/MainApplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/TetrisGit.iml" filepath="$PROJECT_DIR$/.idea/TetrisGit.iml" />
     </modules>
   </component>
