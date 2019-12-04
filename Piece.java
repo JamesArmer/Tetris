@@ -1,17 +1,34 @@
-import PieceOption;
-
 public class Piece {
+    enum PieceOption {
+        blankPiece(new int[][] {{0,0}}, new short[] {1}),
+        linePiece(new int[][] {{0,0}, {1,0}, {2,0}, {-1,0}}, new short[] {4}),
+        zPiece(new int[][] {{0,0}, {0,-1}, {0,1}, {-1,-1}}, new short[] {4}),
+        reverseZPiece(new int[][]{{0,0}, {-1,0}, {0,-1}, {1,-1}}, new short[] {4}),
+        lPiece(new int[][] {{0,0}, {1,0}, {-1,0}, {-1,-1}}, new short[] {4}),
+        reverseLPiece(new int[][] {{0,0}, {1,0}, {1,-1}, {0,-1}}, new short[] {4}),
+        squarePiece(new int[][] {{0,0}, {1,0}, {0,-1}, {-1,-1}}, new short[] {4}),
+        tPiece(new int[][] {{0,0}, {1,0}, {-1,0}, {0,-1}}, new short[] {4});
+
+        public int [][] relativeCoordinates;
+        public short[] blockAmmount;
+
+        private PieceOption(int [][] coordinates, short[] size) {
+            this.relativeCoordinates = coordinates;
+            this.blockAmmount = size;
+        }
+
+    }
+
     private int[] baseCoordinates;
     private int[][] shapeCoordinates;
     private int[] reomoved;
     private PieceOption shape;
-    int size;
+    short size;
 
-    public Piece(int[] startCoord, PieceOption type = blankPiece){
+    public Piece(int[] startCoord, PieceOption type) {
         baseCoordinates = startCoord;
         shape = type;
-        size = type.blockAmmount;
-        removed = new int[];
+        size = type.blockAmmount[0];
         setShape(type);
     }
 
