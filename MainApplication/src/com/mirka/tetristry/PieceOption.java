@@ -2,7 +2,7 @@ package com.mirka.tetristry;
 
 
 public enum PieceOption {
-    blankPiece(new int[][] {{0,0}}, new short[] {1}),
+    blankPiece(new int[][] {{0,0},{0,0},{0,0},{0,0}}, new short[] {1}),
     linePiece(new int[][] {{0,0}, {1,0}, {2,0}, {-1,0}}, new short[] {4}),
     zPiece(new int[][] {{0,0}, {0,-1}, {0,1}, {-1,-1}}, new short[] {4}),
     reverseZPiece(new int[][]{{0,0}, {-1,0}, {0,-1}, {1,-1}}, new short[] {4}),
