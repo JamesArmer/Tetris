@@ -2,7 +2,7 @@ package com.mirka.tetristry;
 
 public class Piece {
     public int[][] shapeCoordinates;
-    private PieceOption shape;
+    public PieceOption shape;
     private short size;
 
     public Piece(PieceOption type) {

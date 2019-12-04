@@ -1,5 +1,6 @@
 package com.mirka.tetristry;
 
+
 public enum PieceOption {
     blankPiece(new int[][] {{0,0}}, new short[] {1}),
     linePiece(new int[][] {{0,0}, {1,0}, {2,0}, {-1,0}}, new short[] {4}),
@@ -17,5 +18,6 @@ public enum PieceOption {
         this.relativeCoordinates = coordinates;
         this.blockAmmount = size;
     }
+
 
 }
