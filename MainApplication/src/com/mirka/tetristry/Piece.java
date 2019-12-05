@@ -4,6 +4,7 @@ public class Piece {
     public int[][] shapeCoordinates;
     public PieceOption shape;
     private short size;
+    private int test;
 
     public Piece(PieceOption type) {
         shape = type;
