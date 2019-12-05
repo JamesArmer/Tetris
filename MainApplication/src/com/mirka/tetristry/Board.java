@@ -18,13 +18,16 @@ public class Board extends JPanel implements ActionListener {
     private Timer timer;
 
 
+    // start the program and setup the board
     public Board(){
         board = new PieceOption[BOARD_WIDTH][BOARD_HEIGHT];
         clearBoard();
         timer = new Timer(400, this); // timer for lines down
         timer.start();
+        repaint();
     }
 
+    // reset board to nothing
     private void clearBoard() {
         for (int i = 0; i < BOARD_WIDTH; i++){
             for (int j = 0; j < BOARD_HEIGHT; j++) {
@@ -33,15 +36,22 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+    // generate the next piece
     private void nextPiece() {
         PieceOption[] allOptions = PieceOption.values();
-        int r = randomise.nextInt(allOptions.length);
+        int r;
+        do {
+            r = randomise.nextInt(allOptions.length);
+        } while(allOptions[r] == PieceOption.blankPiece);
         fallingPiece = new Piece(allOptions[r]);
         currentCoord[0] = BOARD_WIDTH/2;
         currentCoord[1] = BOARD_HEIGHT - fallingPiece.minY()[1];
     }
 
     private boolean isOccupied(int[] coord) {
+        if (coord[0] < 0 || coord[0] >= BOARD_WIDTH || coord[1] >= BOARD_HEIGHT || coord[1] < 0) {
+            return false;
+        }
         if (board[coord[0]][coord[1]] != PieceOption.blankPiece) {
             return true;
         }
@@ -83,7 +93,7 @@ public class Board extends JPanel implements ActionListener {
         int xCoord = currentCoord[0];
         int blockY = 0;
 
-        for (int i = 0; i < fallingPiece.shape.blockAmmount[0]; i++) {
+        for (int i = 0; i < fallingPiece.shape.blockAmmount; i++) {
             blockY = xCoord + yCoord +fallingPiece.shapeCoordinates[i][1];
             if (blockY < BOARD_HEIGHT) {
                 board[xCoord + fallingPiece.shapeCoordinates[i][0]][blockY] = fallingPiece.shape;
@@ -98,7 +108,7 @@ public class Board extends JPanel implements ActionListener {
         boolean broken = false;
         int newYCoord = currentCoord[1]-1;
         int xCoord = currentCoord[0];
-        for (int i = 0; i < fallingPiece.shape.blockAmmount[0]; i++) {
+        for (int i = 0; i < fallingPiece.shape.blockAmmount; i++) {
             if (isOccupied(new int[]{xCoord + fallingPiece.shapeCoordinates[i][0], newYCoord + fallingPiece.shapeCoordinates[i][1]})) {
                 stopDown();
                 broken = true;
@@ -118,6 +128,7 @@ public class Board extends JPanel implements ActionListener {
         } else {
             moveDown();
         }
+        repaint();
     }
 
     public int squareWidth() {

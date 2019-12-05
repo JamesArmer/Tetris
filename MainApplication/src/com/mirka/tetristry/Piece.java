@@ -8,7 +8,8 @@ public class Piece {
 
     public Piece(PieceOption type) {
         shape = type;
-        size = type.blockAmmount[0];
+        size = type.blockAmmount;
+        shapeCoordinates = new int[size][2];
         setShape(type);
     }
 
