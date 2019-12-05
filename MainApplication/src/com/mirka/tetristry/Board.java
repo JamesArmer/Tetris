@@ -20,11 +20,12 @@ public class Board extends JPanel implements ActionListener {
 
     // start the program and setup the board
     public Board(){
+        setFocusable(true);
         board = new PieceOption[BOARD_WIDTH][BOARD_HEIGHT];
         clearBoard();
         timer = new Timer(400, this); // timer for lines down
         timer.start();
-        repaint();
+        nextPiece();
     }
 
     // reset board to nothing
@@ -49,10 +50,10 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private boolean isOccupied(int[] coord) {
-        if (coord[0] < 0 || coord[0] >= BOARD_WIDTH || coord[1] >= BOARD_HEIGHT || coord[1] < 0) {
+        if (coord[0] < 0 || coord[0] >= BOARD_WIDTH || coord[1] >= BOARD_HEIGHT) {
             return false;
         }
-        if (board[coord[0]][coord[1]] != PieceOption.blankPiece) {
+        if (coord[1] < 0 || board[coord[0]][coord[1]] != PieceOption.blankPiece) {
             return true;
         }
         return false;
@@ -165,6 +166,13 @@ public class Board extends JPanel implements ActionListener {
                 if (shape != PieceOption.blankPiece) {
                     drawSquare(g, j * squareWidth(), boardTop + i * squareHeight(), shape);
                 }
+            }
+        }
+        if (fallingPiece.shape != PieceOption.blankPiece) {
+            for (int i = 0; i < fallingPiece.size; ++i) {
+                int x = currentCoord[0] + fallingPiece.shapeCoordinates[i][0];
+                int y = currentCoord[1] + fallingPiece.shapeCoordinates[i][1];
+                drawSquare(g, x * squareWidth(), boardTop + (BOARD_HEIGHT - y - 1) * squareHeight(), fallingPiece.shape);
             }
         }
     }

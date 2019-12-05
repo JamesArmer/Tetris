@@ -9,10 +9,10 @@ public class Tetris extends JFrame {
 
 
     public Tetris() {
+        setSize(400, 800);
+        setTitle("My Tetris");
         Board board = new Board();
         add(board);
-        setSize(200, 400);
-        setTitle("My Tetris");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
