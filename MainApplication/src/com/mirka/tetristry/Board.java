@@ -49,6 +49,7 @@ public class Board extends JPanel implements ActionListener {
         currentCoord[1] = BOARD_HEIGHT - fallingPiece.minY()[1];
     }
 
+    // Check if a square is occupied
     private boolean isOccupied(int[] coord) {
         if (coord[0] < 0 || coord[0] >= BOARD_WIDTH || coord[1] >= BOARD_HEIGHT) {
             return false;
@@ -59,6 +60,7 @@ public class Board extends JPanel implements ActionListener {
         return false;
     }
 
+    // Remove the completed lines
     private void removeFull() {
         int numFull = 0;
         for (int i = 0; i < BOARD_HEIGHT; i++){
@@ -88,14 +90,15 @@ public class Board extends JPanel implements ActionListener {
         repaint();
     }
 
+    // stop the block from moving down if it can't
     private void stopDown(){
         doneFall = true;
-        int yCoord = currentCoord[1]-1;
+        int yCoord = currentCoord[1];
         int xCoord = currentCoord[0];
         int blockY = 0;
 
         for (int i = 0; i < fallingPiece.shape.blockAmmount; i++) {
-            blockY = xCoord + yCoord +fallingPiece.shapeCoordinates[i][1];
+            blockY = yCoord + fallingPiece.shapeCoordinates[i][1];
             if (blockY < BOARD_HEIGHT) {
                 board[xCoord + fallingPiece.shapeCoordinates[i][0]][blockY] = fallingPiece.shape;
             } else {
@@ -105,6 +108,7 @@ public class Board extends JPanel implements ActionListener {
         removeFull();
     }
 
+    // Move the piece down by one
     private void moveDown() {
         boolean broken = false;
         int newYCoord = currentCoord[1]-1;
@@ -121,6 +125,7 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+    // Do this every few seconds
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (doneFall) {
@@ -132,6 +137,9 @@ public class Board extends JPanel implements ActionListener {
         repaint();
     }
 
+
+
+    // PLAGIARISED CODE TO TEST, DO NOT USE FOR FINAL PROJECT
     public int squareWidth() {
         return (int) getSize().getWidth() / BOARD_WIDTH;
     }

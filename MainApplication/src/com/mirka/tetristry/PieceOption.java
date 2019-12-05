@@ -1,6 +1,6 @@
 package com.mirka.tetristry;
 
-
+// Diferent options for pieces
 public enum PieceOption {
     blankPiece(new int[][] {{0,0},{0,0},{0,0},{0,0}}, new short[] {4}),
     linePiece(new int[][] {{0,0}, {1,0}, {2,0}, {-1,0}}, new short[] {4}),

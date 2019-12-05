@@ -1,7 +1,7 @@
 package com.mirka.tetristry;
 
 
-// COPPIED CODE DO NOT USE FOR FINAL PROJECT
+// PLAGIARISED CODE DO NOT USE FOR FINAL PROJECT
 import javax.swing.*;
 import java.awt.*;
 

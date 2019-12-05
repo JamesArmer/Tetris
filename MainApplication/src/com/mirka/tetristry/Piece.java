@@ -6,6 +6,7 @@ public class Piece {
     public short size;
     private int test;
 
+    // Base start
     public Piece(PieceOption type) {
         shape = type;
         size = type.blockAmmount;
@@ -13,6 +14,7 @@ public class Piece {
         setShape(type);
     }
 
+    // copy over the coordinates
     private void setShape(PieceOption type) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < 2; ++j) {
@@ -21,6 +23,7 @@ public class Piece {
         }
     }
 
+    // Rotate piece clockwise
     public Piece rotateClock () {
         Piece rotated = new Piece(this.shape);
 
@@ -31,6 +34,7 @@ public class Piece {
         return rotated;
     }
 
+    // Rotate piece counter clockwise
     public Piece rotateCounter() {
         Piece rotated = new Piece(this.shape);
         for (int i = 0; i < size; i++) {
@@ -40,6 +44,7 @@ public class Piece {
         return rotated;
     }
 
+    // Get the minimum Y value
     public int[] minY(){
         int[] m = {0,0};
 
@@ -52,6 +57,7 @@ public class Piece {
         return m;
     }
 
+    // Get the minimum X value
     public int minX(){
         int m = 0;
 
@@ -64,6 +70,7 @@ public class Piece {
         return m;
     }
 
+    // Get the maximum X value
     public int maxX(){
         int m = 0;
 
