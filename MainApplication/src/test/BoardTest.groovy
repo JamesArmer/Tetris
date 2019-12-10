@@ -1,23 +1,33 @@
 package test
 
-class BoardTest extends GroovyTestCase {
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
+class BoardTest {
+
+    @BeforeEach
     void setUp() {
         super.setUp()
     }
 
-    void tearDown() {
-    }
-
+    @Test
     void testActionPerformed() {
     }
 
+    @Test
     void testSquareWidth() {
     }
 
+    @Test
     void testSquareHeight() {
     }
 
+    @Test
     void testPaint() {
+    }
+
+    @AfterEach
+    void tearDown() {
     }
 }
