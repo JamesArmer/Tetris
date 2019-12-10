@@ -32,6 +32,18 @@ class PieceTest {
     }
 
     @Test
+    void testInitialisedPieces(){
+        assertEquals(blankPiece.shape, PieceOption.blankPiece);
+        assertEquals(linePiece.shape, PieceOption.linePiece);
+        assertEquals(zPiece.shape, PieceOption.zPiece);
+        assertEquals(reverseZPiece.shape, PieceOption.reverseZPiece);
+        assertEquals(lPiece.shape, PieceOption.lPiece);
+        assertEquals(reverseLPiece.shape, PieceOption.reverseLPiece);
+        assertEquals(squarePiece.shape, PieceOption.squarePiece);
+        assertEquals(tPiece.shape, PieceOption.tPiece);
+    }
+
+    @Test
     void rotateClock() {
     }
 
