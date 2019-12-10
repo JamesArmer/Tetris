@@ -30,6 +30,7 @@ public class Board extends JPanel implements ActionListener {
         timer = new Timer(400, this); // timer for lines down
         timer.start();
         addKeyListener(new ControlsAdapter());
+        nextPiece();
     }
 
     // reset board to nothing
@@ -55,10 +56,10 @@ public class Board extends JPanel implements ActionListener {
 
     // Check if a square is occupied
     private boolean isOccupied(int[] coord) {
-        if (coord[0] < 0 || coord[0] >= BOARD_WIDTH || coord[1] >= BOARD_HEIGHT) {
+        if ( coord[1] >= BOARD_HEIGHT) {
             return false;
         }
-        if (coord[1] < 0 || board[coord[0]][coord[1]] != blankPiece) {
+        if (coord[0] < 0 || coord[0] >= BOARD_WIDTH || coord[1] < 0 || board[coord[0]][coord[1]] != blankPiece) {
             return true;
         }
         return false;
@@ -80,14 +81,14 @@ public class Board extends JPanel implements ActionListener {
                 numFull++;
             } else if (numFull > 0) {
                 for (int j = 0; j < BOARD_WIDTH; j++){
-                    board[i-numFull][j] = board[i][j];
+                    board[j][i-numFull] = board[j][i];
                 }
             }
         }
 
         for (int i = BOARD_HEIGHT - numFull; i < BOARD_HEIGHT; i++){
             for (int j = 0; j < BOARD_WIDTH; j++){
-                board[i][j] = blankPiece;
+                board[j][i] = blankPiece;
             }
         }
         // addScore(numFull);
@@ -126,6 +127,7 @@ public class Board extends JPanel implements ActionListener {
         }
         if (!broken){
             currentCoord[1]--;
+            repaint();
         }
     }
 
@@ -135,7 +137,6 @@ public class Board extends JPanel implements ActionListener {
         int newXCoord = currentCoord[0] + direction;
         for (int i = 0; i < fallingPiece.shape.blockAmmount; i++) {
             if (isOccupied(new int[]{newXCoord + fallingPiece.shapeCoordinates[i][0], yCoord + fallingPiece.shapeCoordinates[i][1]})) {
-                stopDown();
                 broken = true;
                 break;
             }
@@ -143,14 +144,17 @@ public class Board extends JPanel implements ActionListener {
         if (!broken){
             currentCoord[0] = newXCoord;
         }
+        repaint();
     }
 
     private void turnPiece(int direction){
-        Piece testPiece = fallingPiece;
+        Piece testPiece;
         if (direction == 1) {
-            testPiece.rotateClock();
-        } else if (direction == 0) {
-            testPiece.rotateCounter();
+            testPiece = fallingPiece.rotateClock();
+        } else if (direction == -1) {
+            testPiece = fallingPiece.rotateCounter();
+        } else {
+            return;
         }
 
         boolean broken = false;
@@ -159,7 +163,6 @@ public class Board extends JPanel implements ActionListener {
 
         for (int i = 0; i < testPiece.shape.blockAmmount; i++) {
             if (isOccupied(new int[]{xCoord + testPiece.shapeCoordinates[i][0], yCoord + testPiece.shapeCoordinates[i][1]})) {
-                stopDown();
                 broken = true;
                 break;
             }
@@ -167,6 +170,7 @@ public class Board extends JPanel implements ActionListener {
         if (!broken){
             fallingPiece = testPiece;
         }
+        repaint();
     }
 
     // Do this every few seconds

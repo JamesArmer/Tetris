@@ -28,8 +28,8 @@ public class Piece {
         Piece rotated = new Piece(this.shape);
 
         for (int i = 0; i < size; i++) {
-            rotated.shapeCoordinates[i][0] = this.shapeCoordinates[i][0];
-            rotated.shapeCoordinates[i][1] = -this.shapeCoordinates[i][1];
+            rotated.shapeCoordinates[i][0] = -this.shapeCoordinates[i][1];
+            rotated.shapeCoordinates[i][1] = this.shapeCoordinates[i][0];
         }
         return rotated;
     }
@@ -38,8 +38,8 @@ public class Piece {
     public Piece rotateCounter() {
         Piece rotated = new Piece(this.shape);
         for (int i = 0; i < size; i++) {
-            rotated.shapeCoordinates[i][0] = -this.shapeCoordinates[i][0];
-            rotated.shapeCoordinates[i][1] = this.shapeCoordinates[i][1];
+            rotated.shapeCoordinates[i][0] = this.shapeCoordinates[i][1];
+            rotated.shapeCoordinates[i][1] = -this.shapeCoordinates[i][0];
         }
         return rotated;
     }
