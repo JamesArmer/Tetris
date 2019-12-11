@@ -25,8 +25,11 @@ public class Piece {
 
     // Rotate piece clockwise
     public Piece rotateClock () {
-        Piece rotated = new Piece(this.shape);
+        if (shape == PieceOption.squarePiece){
+            return this;
+        }
 
+        Piece rotated = new Piece(this.shape);
         for (int i = 0; i < size; i++) {
             rotated.shapeCoordinates[i][0] = -this.shapeCoordinates[i][1];
             rotated.shapeCoordinates[i][1] = this.shapeCoordinates[i][0];
@@ -36,6 +39,10 @@ public class Piece {
 
     // Rotate piece counter clockwise
     public Piece rotateCounter() {
+        if (shape == PieceOption.squarePiece){
+            return this;
+        }
+
         Piece rotated = new Piece(this.shape);
         for (int i = 0; i < size; i++) {
             rotated.shapeCoordinates[i][0] = this.shapeCoordinates[i][1];

@@ -15,11 +15,13 @@ public class Board extends JPanel implements ActionListener {
     private static final int BOARD_HEIGHT = 22;
     private PieceOption[][] board;
 
-    private boolean doneFall = true;
+
     private Piece fallingPiece;
     private int[] currentCoord = {0,0};
+    private boolean doneFall = true;
 
     private Random randomise = new Random();
+    private PieceOption[] upcomingPieces = {blankPiece,blankPiece,blankPiece,blankPiece,blankPiece};
 
     private GameState gameState = GameState.STOPPED;
     private String stoppedMessage = "<html>G<br>A<br>M<br>E<br><br>O<br>V<br>E<br>R<br><br>" +
@@ -47,6 +49,17 @@ public class Board extends JPanel implements ActionListener {
         timer = new Timer(400, this); // timer for lines down
     }
 
+    private void randomizedList(){
+        for (int i = 0; i < upcomingPieces.length; i++) {
+            PieceOption[] allOptions = PieceOption.values();
+            int r;
+            do {
+                r = randomise.nextInt(allOptions.length);
+            } while (allOptions[r] == blankPiece);
+            upcomingPieces[i] = allOptions[r];
+        }
+    }
+
     // reset board to nothing
     private void clearBoard() {
         for (int i = 0; i < BOARD_WIDTH; i++){
@@ -58,12 +71,27 @@ public class Board extends JPanel implements ActionListener {
 
     // generate the next piece
     private void nextPiece() {
+        StringBuilder outputNext = new StringBuilder("Upcoming Pieces: ");
         PieceOption[] allOptions = PieceOption.values();
+        fallingPiece = new Piece(upcomingPieces[0]);
+
         int r;
         do {
             r = randomise.nextInt(allOptions.length);
         } while(allOptions[r] == blankPiece);
-        fallingPiece = new Piece(allOptions[r]);
+        for (int i = 1; i < upcomingPieces.length; i++) {
+            upcomingPieces[i-1] = upcomingPieces[i];
+            String upcomingName = upcomingPieces[i - 1].name;
+            outputNext.append(upcomingName);
+            outputNext.append(" ");
+        }
+        upcomingPieces[upcomingPieces.length-1] = allOptions[r];
+        String upcomingName = allOptions[r].name;
+        outputNext.append(upcomingName);
+        outputNext.append(" ");
+        upcoming.setText(outputNext.toString());
+
+
         currentCoord[0] = BOARD_WIDTH/2;
         currentCoord[1] = BOARD_HEIGHT - fallingPiece.minY()[1];
     }
@@ -296,6 +324,7 @@ public class Board extends JPanel implements ActionListener {
             nextPiece();
             gameStatus.setText(startMessage);
             scoreBoard.setText("Score: " + score);
+            randomizedList();
         }
     }
 
