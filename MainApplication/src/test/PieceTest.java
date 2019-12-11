@@ -45,10 +45,12 @@ class PieceTest {
 
     @Test
     void rotateClock() {
+        //Piece rotated = new rotateClock();
     }
 
     @Test
     void rotateCounter() {
+
     }
 
     @Test
