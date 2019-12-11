@@ -101,7 +101,10 @@ public class Board extends JPanel implements ActionListener {
         if ( coord[1] >= BOARD_HEIGHT) {
             return false;
         }
-        return (coord[0] < 0 || coord[0] >= BOARD_WIDTH || coord[1] < 0 || board[coord[0]][coord[1]] != blankPiece);
+        return (coord[0] < 0 ||
+                coord[0] >= BOARD_WIDTH ||
+                coord[1] < 0 ||
+                board[coord[0]][coord[1]] != blankPiece);
     }
 
     private void addScore(int lines) {
