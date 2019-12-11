@@ -14,23 +14,37 @@ public class Board extends JPanel implements ActionListener {
     private static final int BOARD_WIDTH = 10;
     private static final int BOARD_HEIGHT = 22;
     private PieceOption[][] board;
+
     private boolean doneFall = true;
     private Piece fallingPiece;
-    private Random randomise = new Random();
     private int[] currentCoord = {0,0};
 
+    private Random randomise = new Random();
+
+    private GameState gameState = GameState.STOPPED;
+    private String stoppedMessage = "<html>G<br>A<br>M<br>E<br><br>O<br>V<br>E<br>R<br><br>" +
+                                    "P<br>R<br>E<br>S<br>S<br><br>R<br><br>T<br>O<br><br>" +
+                                    "R<br>E<br>S<br>T<br>A<br>R<br>T</html";
+    private String startMessage = "<html>S<br>T<br>A<br>R<br>T<br>E<br>D</html";
+    private String pauseMessage = "<html>P<br>A<br>U<br>S<br>E<br>D</html";
+
+    private JLabel scoreBoard;
+    private JLabel upcoming;
+    private JLabel gameStatus;
     private Timer timer;
+    private int score = 0;
 
 
     // start the program and setup the board
-    public Board(){
+    public Board(Tetris parent){
         setFocusable(true);
         board = new PieceOption[BOARD_WIDTH][BOARD_HEIGHT];
-        clearBoard();
-        timer = new Timer(400, this); // timer for lines down
-        timer.start();
+        JLabel[] extras = parent.getJLabels();
+        scoreBoard = extras[0];
+        upcoming = extras[1];
+        gameStatus = extras[2];
         addKeyListener(new ControlsAdapter());
-        nextPiece();
+        timer = new Timer(400, this); // timer for lines down
     }
 
     // reset board to nothing
@@ -65,6 +79,25 @@ public class Board extends JPanel implements ActionListener {
         return false;
     }
 
+    private void addScore(int lines) {
+        switch(lines) {
+            case 1:
+                score += 100;
+                break;
+            case 2:
+                score += 250;
+                break;
+            case 3:
+                score += 500;
+                break;
+            case 4:
+                score += 800;
+                break;
+        }
+        scoreBoard.setText("Score: " + score);
+    }
+
+
     // Remove the completed lines
     private void removeFull() {
         int numFull = 0;
@@ -91,7 +124,7 @@ public class Board extends JPanel implements ActionListener {
                 board[j][i] = blankPiece;
             }
         }
-        // addScore(numFull);
+        addScore(numFull);
         repaint();
     }
 
@@ -107,10 +140,12 @@ public class Board extends JPanel implements ActionListener {
             if (blockY < BOARD_HEIGHT) {
                 board[xCoord + fallingPiece.shapeCoordinates[i][0]][blockY] = fallingPiece.shape;
             } else {
-                // gameOver();
+                gameOver();
             }
         }
-        removeFull();
+        if(gameState != GameState.STOPPED) {
+            removeFull();
+        }
     }
 
     // Move the piece down by one
@@ -128,6 +163,27 @@ public class Board extends JPanel implements ActionListener {
         if (!broken){
             currentCoord[1]--;
             repaint();
+        }
+    }
+
+    private void moveDownUntilStopped() {
+        boolean done = false;
+        while(!done) {
+            boolean broken = false;
+            int newYCoord = currentCoord[1] - 1;
+            int xCoord = currentCoord[0];
+            for (int i = 0; i < fallingPiece.shape.blockAmmount; i++) {
+                if (isOccupied(new int[]{xCoord + fallingPiece.shapeCoordinates[i][0], newYCoord + fallingPiece.shapeCoordinates[i][1]})) {
+                    stopDown();
+                    broken = true;
+                    done = true;
+                    break;
+                }
+            }
+            if (!broken) {
+                currentCoord[1]--;
+                repaint();
+            }
         }
     }
 
@@ -185,10 +241,24 @@ public class Board extends JPanel implements ActionListener {
         repaint();
     }
 
+    // Get input
     class ControlsAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent ke) {
             int keyCode = ke.getKeyCode();
+
+            if (keyCode == 'p' || keyCode == 'P' || keyCode == KeyEvent.VK_ESCAPE) {
+                pause();
+            }
+
+            if (keyCode == 'r' || keyCode == 'R') {
+                gameOver();
+                start();
+            }
+
+            if(!(gameState == GameState.STARTED)) {
+                return;
+            }
 
             switch (keyCode) {
                 case 'a':
@@ -211,9 +281,41 @@ public class Board extends JPanel implements ActionListener {
                 case KeyEvent.VK_DOWN:
                     turnPiece(1);
                     break;
-
+                case KeyEvent.VK_SPACE:
+                    moveDownUntilStopped();
+                    break;
             }
         }
+    }
+
+    public void start() {
+        if (gameState == GameState.STOPPED) {
+            gameState = GameState.STARTED;
+            clearBoard();
+            timer.start();
+            nextPiece();
+            gameStatus.setText(startMessage);
+            scoreBoard.setText("Score: " + score);
+        }
+    }
+
+    public void pause() {
+        if (gameState == GameState.STARTED) {
+            gameState = GameState.PAUSED;
+            timer.stop();
+            gameStatus.setText(pauseMessage);
+        } else if (gameState == GameState.PAUSED) {
+            gameState = GameState.STARTED;
+            timer.start();
+            gameStatus.setText(startMessage);
+        }
+    }
+
+    public void gameOver() {
+        gameState = GameState.STOPPED;
+        timer.stop();
+        gameStatus.setText(stoppedMessage);
+        score = 0;
     }
 
     // PLAGIARISED CODE TO TEST, DO NOT USE FOR FINAL PROJECT
