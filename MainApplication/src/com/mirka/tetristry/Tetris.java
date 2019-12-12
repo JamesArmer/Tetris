@@ -1,7 +1,5 @@
 package com.mirka.tetristry;
 
-
-// PLAGIARISED CODE DO NOT USE FOR FINAL PROJECT
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,13 +13,13 @@ public class Tetris extends JFrame {
     public Tetris() {
         scoreboard = new JLabel("Score: 0");
         upcoming = new JLabel("Upcoming Pieces: ");
-        gameStatus = new JLabel("<html>S<br>O<br>P<br>P<br>E<br>D</html");
+        gameStatus = new JLabel("<html>S<br>T<br>O<br>P<br>P<br>E<br>D</html>");
 
         add(scoreboard, BorderLayout.PAGE_END);
         add(upcoming, BorderLayout.PAGE_START);
         add(gameStatus, BorderLayout.LINE_END);
         setSize(400, 800);
-        setTitle("Tetris Company Tetris");
+        setTitle("SQA Tetris Company's Tetris");
         Board board = new Board(this);
         add(board);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -29,7 +27,7 @@ public class Tetris extends JFrame {
     }
 
     public JLabel[] getJLabels() {
-        return new JLabel[]{scoreboard, upcoming, gameStatus};
+        return new JLabel[] {scoreboard, upcoming, gameStatus};
     }
 
     public static void main(String[] args) {

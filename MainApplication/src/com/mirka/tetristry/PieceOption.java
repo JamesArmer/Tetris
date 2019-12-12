@@ -11,11 +11,11 @@ public enum PieceOption {
     reverseZPiece(new int[][] {{0,0}, {1,0}, {0,-1}, {-1,-1}}, new short[] {4}, "RZ"),
     tPiece(new int[][] {{0,0}, {1,0}, {-1,0}, {0,-1}}, new short[] {4}, " T");
 
-    public int [][] relativeCoordinates;
+    public int[][] relativeCoordinates;
     public short blockAmmount;
     public String name;
 
-    private PieceOption(int [][] coordinates, short[] size, String pieceName) {
+    private PieceOption(int[][] coordinates, short[] size, String pieceName) {
         this.relativeCoordinates = coordinates;
         this.blockAmmount = size[0];
         this.name = pieceName;
