@@ -64,19 +64,57 @@ class PieceTest {
         }
 
         // Test the pieces have their coordinates initalised properly
-        // Test doesn't work...
-        /*int[][] expected = new int[][] {{0,0},{0,0},{0,0},{0,0}};
-        int[][] actual = blankPiece.shapeCoordinates;
-        assertEquals(expected, actual);*/
-
-        // Fails as well .. not a fucking clue why
-        /*int[][] expected = PieceOption.blankPiece.relativeCoordinates;
-        int[][] actual = blankPiece.shapeCoordinates;
-        assertEquals(expected, actual);*/
+        int[][] expected;
+        int[][] actual;
+        // Blank piece
+        expected = new int[][] {{0,0},{0,0},{0,0},{0,0}};
+        actual = blankPiece.shapeCoordinates;
+        assertArrayEquals(expected, actual);
+        // Line piece
+        expected = new int[][] {{0,0}, {1,0}, {2,0}, {-1,0}};
+        actual = linePiece.shapeCoordinates;
+        assertArrayEquals(expected, actual);
+        // Z shaped piece
+        expected = new int[][] {{0,0}, {0,-1}, {0,1}, {-1,-1}};
+        actual = zPiece.shapeCoordinates;
+        assertArrayEquals(expected, actual);
+        // Inverted z shaped piece
+        expected = new int[][] {{0,0}, {-1,0}, {0,-1}, {1,-1}};
+        actual = reverseZPiece.shapeCoordinates;
+        assertArrayEquals(expected, actual);
+        // L shaped piece
+        expected = new int[][] {{0,0}, {1,0}, {-1,0}, {-1,-1}};
+        actual = lPiece.shapeCoordinates;
+        assertArrayEquals(expected, actual);
+        // Inverted L shaped piece
+        expected = new int[][] {{0,0}, {1,0}, {1,-1}, {0,-1}};
+        actual = reverseLPiece.shapeCoordinates;
+        assertArrayEquals(expected, actual);
+        // Square shaped piece
+        expected = new int[][] {{0,0}, {1,0}, {0,-1}, {-1,-1}};
+        actual = squarePiece.shapeCoordinates;
+        assertArrayEquals(expected, actual);
+        // T shaped piece
+        expected = new int[][] {{0,0}, {1,0}, {-1,0}, {0,-1}};
+        actual = tPiece.shapeCoordinates;
+        assertArrayEquals(expected, actual);
     }
 
     @Test
     void rotateClock() {
+        // Check this works for each piece
+        int[][] expected;
+        int[][] actual;
+
+        blankPiece.rotateClock();
+        expected = new int[][] {{0,0},{0,0},{0,0},{0,0}};
+        actual = blankPiece.shapeCoordinates;
+        assertArrayEquals(expected, actual);
+
+        linePiece.rotateClock();
+        expected = new int[][] {{0,0},{0,1},{0,2},{0,-1}};
+        actual = linePiece.shapeCoordinates;
+        assertArrayEquals(expected, actual);
     }
 
     @Test
