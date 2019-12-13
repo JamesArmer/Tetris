@@ -111,9 +111,9 @@ class PieceTest {
         actual = blankPiece.shapeCoordinates;
         assertArrayEquals(expected, actual);
 
-        linePiece.rotateClock();
-        expected = new int[][] {{0,0},{0,1},{0,2},{0,-1}};
-        actual = linePiece.shapeCoordinates;
+        squarePiece.rotateClock();
+        expected = new int[][] {{0,0}, {1,0}, {0,-1}, {-1,-1}};
+        actual = squarePiece.shapeCoordinates;
         assertArrayEquals(expected, actual);
     }
 
