@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -114,6 +115,19 @@ class PieceTest {
         squarePiece.rotateClock();
         expected = new int[][] {{0,0}, {1,0}, {0,-1}, {-1,-1}};
         actual = squarePiece.shapeCoordinates;
+        assertArrayEquals(expected, actual);
+
+
+        expected = new int[][] {{0,0}, {0,1}, {0,2}, {0,-1}};
+
+        actual = linePiece.rotateClock().shapeCoordinates;
+
+        for(int[] i : actual){
+            for(int j : i){
+                System.out.print(j + ", ");
+            }
+            System.out.println();
+        }
         assertArrayEquals(expected, actual);
     }
 

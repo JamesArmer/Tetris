@@ -31,13 +31,7 @@ public class Piece {
             rotated.shapeCoordinates[i][0] = this.shapeCoordinates[i][0];
             rotated.shapeCoordinates[i][1] = -this.shapeCoordinates[i][1];
         }
-
-        for(int[] arr: rotated.shapeCoordinates){
-            System.out.println(arr[0] + ", " + arr[1]);
-        }
-
         return rotated;
-
     }
 
     // Rotate piece counter clockwise
