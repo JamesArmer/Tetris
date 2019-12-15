@@ -144,6 +144,42 @@ class PieceTest {
 
     @Test
     void rotateCounter() {
+        int[][] expected;
+        int[][] actual;
+
+        blankPiece.rotateClock();
+        expected = new int[][]{{0, 0}, {0, 0}, {0, 0}, {0, 0}};
+        actual = blankPiece.shapeCoordinates;
+        assertArrayEquals(expected, actual);
+
+        expected = new int[][]{{0, 0}, {0, 1}, {0, 2}, {0, -1}};
+        actual = linePiece.rotateClock().shapeCoordinates;
+        assertArrayEquals(expected, actual);
+
+        expected = new int[][]{{0,0}, {1,0}, {-1,0}, {1,-1}};
+        actual = zPiece.rotateClock().shapeCoordinates;
+        assertArrayEquals(expected, actual);
+
+        expected = new int[][]{{0,0}, {0,-1}, {1,0}, {1,1}};
+        actual = reverseZPiece.rotateClock().shapeCoordinates;
+        assertArrayEquals(expected, actual);
+
+        expected = new int[][]{{0,0}, {0,1}, {0,-1}, {1,-1}};
+        actual = lPiece.rotateClock().shapeCoordinates;
+        assertArrayEquals(expected, actual);
+
+        expected = new int[][]{{0,0}, {0,1}, {1,1}, {1,0}};
+        actual = reverseLPiece.rotateClock().shapeCoordinates;
+        assertArrayEquals(expected, actual);
+
+        squarePiece.rotateClock();
+        expected = new int[][]{{0, 0}, {1, 0}, {0, -1}, {-1, -1}};
+        actual = squarePiece.shapeCoordinates;
+        assertArrayEquals(expected, actual);
+
+        expected = new int[][]{{0,0}, {0,1}, {0,-1}, {1,0}};
+        actual = tPiece.rotateClock().shapeCoordinates;
+        assertArrayEquals(expected, actual);
 
     }
 
