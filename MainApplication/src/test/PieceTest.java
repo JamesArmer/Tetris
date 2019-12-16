@@ -107,9 +107,8 @@ class PieceTest {
         int[][] expected;
         int[][] actual;
 
-        blankPiece.rotateClock();
         expected = new int[][]{{0, 0}, {0, 0}, {0, 0}, {0, 0}};
-        actual = blankPiece.shapeCoordinates;
+        actual = blankPiece.rotateClock().shapeCoordinates;
         assertArrayEquals(expected, actual);
 
         expected = new int[][]{{0, 0}, {0, 1}, {0, 2}, {0, -1}};
@@ -171,7 +170,6 @@ class PieceTest {
         actual = reverseLPiece.rotateCounter().shapeCoordinates;
         assertArrayEquals(expected, actual);
 
-
         expected = new int[][]{{0, 0}, {1, 0}, {0, -1}, {-1, -1}};
         actual = squarePiece.rotateCounter().shapeCoordinates;
         assertArrayEquals(expected, actual);
@@ -187,6 +185,11 @@ class PieceTest {
 
     @Test
     void minX() {
+        for(Piece p : allPieces){
+            int[][] sCoordinates = p.shapeCoordinates;
+            // DO soemething
+
+        }
     }
 
     @Test
