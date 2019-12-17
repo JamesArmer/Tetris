@@ -181,22 +181,59 @@ class PieceTest {
 
     @Test
     void minY() {
+        for(Piece p : allPieces){
+            int[][] sCoordinates = p.shapeCoordinates;
+            int test;
+
+            // supply test data: populate all y=0
+            for(int first=0; first<p.size; first++){
+                p.shapeCoordinates[first][1] = 0;
+            }
+            // supply correct data to test against: set the test case to = 1
+            test = 1;
+            // line below should work once minY is changed to return an int only
+            //assertTrue(p.minY() < test);
+
+            // set the coordinates back for other tests
+            p.shapeCoordinates = sCoordinates;
+        }
     }
 
     @Test
     void minX() {
         for(Piece p : allPieces){
             int[][] sCoordinates = p.shapeCoordinates;
-            // DO soemething
+            int test;
 
+            // supply test data:  populate all x=0
+            for(int first=0; first<p.size; first++){
+                p.shapeCoordinates[first][0] = 0;
+            }
+            // supply correct data to test against: set the test case to = 1
+            test = 1;
+            assertTrue(p.minX() < test);
+
+            // set the coordinates back for other tests
+            p.shapeCoordinates = sCoordinates;
         }
     }
 
     @Test
     void maxX() {
-    }
+        for(Piece p : allPieces){
+            int[][] sCoordinates = p.shapeCoordinates;
+            int test;
 
-    @AfterEach
-    void tearDown() {
+            // supply test data:  populate all x=1
+            for(int first=0; first<p.size; first++){
+                p.shapeCoordinates[first][0] = 1;
+            }
+            // supply correct data to test against: set the test case to = 0
+            test = 0;
+            assertTrue(p.maxX() > test);
+
+            // set the coordinates back for other tests
+            p.shapeCoordinates = sCoordinates;
+        }
     }
 }
