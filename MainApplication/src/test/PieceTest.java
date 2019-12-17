@@ -191,8 +191,8 @@ class PieceTest {
             }
             // supply correct data to test against: set the test case to = 1
             test = 1;
-            // line below should work once minY is changed to return an int only
-            //assertTrue(p.minY() < test);
+            // line below only checks the 1st coordinate as that is the only coordinate ever used in the game
+            assertTrue(p.minY()[1] < test);
 
             // set the coordinates back for other tests
             p.shapeCoordinates = sCoordinates;
