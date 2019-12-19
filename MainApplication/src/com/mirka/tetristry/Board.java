@@ -26,9 +26,9 @@ public class Board extends JPanel implements ActionListener {
     private GameState gameState = GameState.STOPPED;
     private String stoppedMessage = "<html>G<br>A<br>M<br>E<br><br>O<br>V<br>E<br>R<br><br>" +
                                     "P<br>R<br>E<br>S<br>S<br><br>R<br><br>T<br>O<br><br>" +
-                                    "R<br>E<br>S<br>T<br>A<br>R<br>T</html";
-    private String startMessage = "<html>S<br>T<br>A<br>R<br>T<br>E<br>D</html";
-    private String pauseMessage = "<html>P<br>A<br>U<br>S<br>E<br>D</html";
+                                    "R<br>E<br>S<br>T<br>A<br>R<br>T</html>";
+    private String startMessage = "<html>S<br>T<br>A<br>R<br>T<br>E<br>D</html>";
+    private String pauseMessage = "<html>P<br>A<br>U<br>S<br>E<br>D</html>";
 
     private JLabel scoreBoard;
     private JLabel upcoming;
@@ -38,7 +38,7 @@ public class Board extends JPanel implements ActionListener {
 
 
     // start the program and setup the board
-    public Board(Tetris parent){
+    public Board(Tetris parent) {
         setFocusable(true);
         board = new PieceOption[BOARD_WIDTH][BOARD_HEIGHT];
         JLabel[] extras = parent.getJLabels();
@@ -62,7 +62,7 @@ public class Board extends JPanel implements ActionListener {
 
     // reset board to nothing
     private void clearBoard() {
-        for (int i = 0; i < BOARD_WIDTH; i++){
+        for (int i = 0; i < BOARD_WIDTH; i++) {
             for (int j = 0; j < BOARD_HEIGHT; j++) {
                 board[i][j] = blankPiece;
             }
@@ -231,7 +231,7 @@ public class Board extends JPanel implements ActionListener {
         repaint();
     }
 
-    private void turnPiece(int direction){
+    private void turnPiece(int direction) {
         Piece testPiece;
         if (direction == 1) {
             testPiece = fallingPiece.rotateClock();
@@ -251,7 +251,7 @@ public class Board extends JPanel implements ActionListener {
                 break;
             }
         }
-        if (!broken){
+        if (!broken) {
             fallingPiece = testPiece;
         }
         repaint();
@@ -347,7 +347,6 @@ public class Board extends JPanel implements ActionListener {
         score = 0;
     }
 
-    // PLAGIARISED CODE TO TEST, DO NOT USE FOR FINAL PROJECT
     public int squareWidth() {
         return (int) getSize().getWidth() / BOARD_WIDTH;
     }
@@ -360,12 +359,11 @@ public class Board extends JPanel implements ActionListener {
         Color color = Color.BLUE;
         g.setColor(color);
         g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
-        g.setColor(color.brighter());
+        g.setColor(color.BLACK);
         g.drawLine(x, y + squareHeight() - 1, x, y);
         g.drawLine(x, y, x + squareWidth() - 1, y);
-        g.setColor(color.darker());
-        g.drawLine(x + 1, y + squareHeight() - 1, x + squareWidth() - 1, y + squareHeight() - 1);
-        g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1, x + squareWidth() - 1, y + 1);
+        g.drawLine(x, y + squareHeight() - 1, x + squareWidth() - 1, y + squareHeight() - 1);
+        g.drawLine(x +  squareWidth() - 1, y + squareWidth() - 1, x + squareWidth() - 1, y);
     }
 
     @Override
@@ -373,22 +371,30 @@ public class Board extends JPanel implements ActionListener {
         super.paint(g);
         Dimension size = getSize();
 
-        int boardTop = (int) size.getHeight() - BOARD_HEIGHT * squareHeight();
+        int startFrom = (int) size.getHeight() - BOARD_HEIGHT * squareHeight();
 
         for (int i = 0; i < BOARD_HEIGHT; i++) {
             for (int j = 0; j < BOARD_WIDTH; ++j) {
                 PieceOption shape = board[j][BOARD_HEIGHT - i - 1];
+                int x = j * squareWidth();
+                int y = startFrom + i * squareHeight();
+
+                g.setColor(Color.GRAY);
 
                 if (shape != blankPiece) {
-                    drawSquare(g, j * squareWidth(), boardTop + i * squareHeight(), shape);
+                    drawSquare(g, x, y, shape);
+                    g.setColor(Color.BLACK);
                 }
+
+                g.drawLine(x, y + squareHeight() - 1, x, y);
+                g.drawLine(x, y, x + squareWidth() - 1, y);
             }
         }
         if (fallingPiece.shape != blankPiece) {
             for (int i = 0; i < fallingPiece.size; ++i) {
                 int x = currentCoord[0] + fallingPiece.shapeCoordinates[i][0];
                 int y = currentCoord[1] + fallingPiece.shapeCoordinates[i][1];
-                drawSquare(g, x * squareWidth(), boardTop + (BOARD_HEIGHT - y - 1) * squareHeight(), fallingPiece.shape);
+                drawSquare(g, x * squareWidth(), startFrom + (BOARD_HEIGHT - y - 1) * squareHeight(), fallingPiece.shape);
             }
         }
     }

@@ -25,7 +25,7 @@ public class Piece {
 
     // Rotate piece clockwise
     public Piece rotateClock () {
-        if (shape == PieceOption.squarePiece){
+        if (shape == PieceOption.squarePiece) {
             return this;
         }
 
@@ -39,7 +39,7 @@ public class Piece {
 
     // Rotate piece counter clockwise
     public Piece rotateCounter() {
-        if (shape == PieceOption.squarePiece){
+        if (shape == PieceOption.squarePiece) {
             return this;
         }
 
@@ -52,11 +52,11 @@ public class Piece {
     }
 
     // Get the minimum Y value
-    public int[] minY(){
+    public int[] minY() {
         int[] m = {0,0};
 
         for (int i = 0; i < size; i++) {
-            if (this.shapeCoordinates[i][1] < m[1]){
+            if (this.shapeCoordinates[i][1] < m[1]) {
                 m[1] = this.shapeCoordinates[i][1];
             }
         }
@@ -65,11 +65,11 @@ public class Piece {
     }
 
     // Get the minimum X value
-    public int minX(){
+    public int minX() {
         int m = 0;
 
         for (int i = 0; i < size; i++) {
-            if (this.shapeCoordinates[i][0] < m){
+            if (this.shapeCoordinates[i][0] < m) {
                 m = this.shapeCoordinates[i][0];
             }
         }
@@ -78,11 +78,11 @@ public class Piece {
     }
 
     // Get the maximum X value
-    public int maxX(){
+    public int maxX() {
         int m = 0;
 
         for (int i = 0; i < size; i++) {
-            if (this.shapeCoordinates[i][0] > m){
+            if (this.shapeCoordinates[i][0] > m) {
                 m = this.shapeCoordinates[i][0];
             }
         }
