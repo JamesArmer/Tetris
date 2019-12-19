@@ -34,6 +34,7 @@ public class Piece {
             rotated.shapeCoordinates[i][0] = -this.shapeCoordinates[i][1];
             rotated.shapeCoordinates[i][1] = this.shapeCoordinates[i][0];
         }
+
         return rotated;
     }
 
@@ -48,6 +49,7 @@ public class Piece {
             rotated.shapeCoordinates[i][0] = this.shapeCoordinates[i][1];
             rotated.shapeCoordinates[i][1] = -this.shapeCoordinates[i][0];
         }
+
         return rotated;
     }
 
